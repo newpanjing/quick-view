@@ -1,0 +1,17 @@
+{
+  "name": "quick-view",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "dev": "electron .",
+    "build": "electron-packager . QuickView --darwin --out ./dist/ --arch=x64 --app-version=0.0.1 --overwrite"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^5.0.4",
+    "electron-packager": "^13.1.1"
+  }
+}

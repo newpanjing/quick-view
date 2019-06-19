@@ -1,0 +1,64 @@
+html, body {
+  background: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+#app {
+  -webkit-app-region: drag;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  color: white;
+
+  .img-wrap {
+    outline: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .iconfont{
+      font-size: 30px!important;
+    }
+    .switch{
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      text-align: center;
+      line-height: 60px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: color 0.2s;
+      &:active{
+        color: white;
+      }
+      &:hover{
+        color: #46a1d8;
+      }
+    }
+    .left,.right{
+      top: 50%;
+      margin-top: -30px;
+      left: 20px;
+    }
+    .right{
+      right: 20px;
+      left: auto;
+    }
+    .preview {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+}
+
+/*滚动条样式*/
+//*::-webkit-scrollbar {
+//  -webkit-app-region: none;
+//}

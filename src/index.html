@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="./style/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="./iconfont/iconfont.css">
+</head>
+<body>
+<div id="app" v-dragfile="openFile">
+
+    <div class="img-wrap" :style="{height: imgWrapHeight+'px'}" @keyup="switchKeyborad($event)" tabindex="0">
+        <div class="switch left" @click="prev()"><span class="iconfont icon-changyongicon-1"></span></div>
+        <div class="switch right" @click="next()"><span class="iconfont icon-changyongicon-"></span></div>
+        <img v-if="image.src" :style="image" class="preview" :src='image.src'/>
+    </div>
+</div>
+<script type="text/javascript" src="lib/vue.js"></script>
+<script type="text/javascript" src="quick.view.js"></script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+# Project exclude paths
+/dist/QuickView-darwin-x64/QuickView.app/Contents/Resources/app/node_modules/
+/node_modules/
