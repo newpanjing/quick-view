@@ -28,6 +28,7 @@ var app = new Vue({
     el: '#app',
     data: {
         url: null,
+        toolbarHeight: 100,
         currentIndex: -1,
         imgWrapHeight: 100,
         files: [],
@@ -130,8 +131,8 @@ var app = new Vue({
 window.onload = window.onresize = function () {
     app.openFile('/Users/panjing/Downloads/8d5494eef01f3a29f863534d9725bc315d607c8e.jpg')
 
-    var toolbar = 100;
+
     var height = document.body.offsetHeight;
-    app.imgWrapHeight = height - toolbar;
+    app.imgWrapHeight = height - app.toolbarHeight;
     // app.$forceUpdate();
 }

@@ -14,6 +14,15 @@
         <div class="switch right" @click="next()"><span class="iconfont icon-changyongicon-"></span></div>
         <img v-if="image.src" :style="image" class="preview" :src='image.src'/>
     </div>
+    <span class="size">{{image.width}}x{{image.height}}</span>
+    <div class="toolbar" :style="{height:toolbarHeight+'px'}">
+        <div class="btns">
+            <span class="page">{{currentIndex+1}}/{{files.length}}</span>
+            <span class="iconfont icon-Zoomout"></span>
+            <span>100%</span>
+            <span class="iconfont icon-Zoomin"></span>
+        </div>
+    </div>
 </div>
 <script type="text/javascript" src="lib/vue.js"></script>
 <script type="text/javascript" src="quick.view.js"></script>

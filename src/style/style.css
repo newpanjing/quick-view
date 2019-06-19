@@ -23,7 +23,7 @@ body {
   justify-content: center;
 }
 #app .img-wrap .iconfont {
-  font-size: 30px!important;
+  font-size: 30px !important;
 }
 #app .img-wrap .switch {
   width: 60px;
@@ -35,13 +35,13 @@ body {
   line-height: 60px;
   border-radius: 50px;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: background-color 0.2s;
 }
 #app .img-wrap .switch:active {
   color: white;
 }
 #app .img-wrap .switch:hover {
-  color: #46a1d8;
+  background-color: #49aaf8;
 }
 #app .img-wrap .left,
 #app .img-wrap .right {
@@ -56,6 +56,21 @@ body {
 #app .img-wrap .preview {
   max-width: 100%;
   max-height: 100%;
+}
+.toolbar {
+  background: #000;
+  color: white;
+}
+.toolbar .btns {
+  width: 500px;
+  margin: 0px auto;
+}
+.size {
+  position: fixed;
+  top: 0;
+  right: 2px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
 }
 /*滚动条样式*/
 /*# sourceMappingURL=style.css.map */

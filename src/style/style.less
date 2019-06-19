@@ -21,41 +21,64 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    .iconfont{
-      font-size: 30px!important;
+
+    .iconfont {
+      font-size: 30px !important;
     }
-    .switch{
+
+    .switch {
       width: 60px;
       height: 60px;
       position: absolute;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0, 0, 0, 0.6);
       color: white;
       text-align: center;
       line-height: 60px;
       border-radius: 50px;
       cursor: pointer;
-      transition: color 0.2s;
-      &:active{
+      transition: background-color 0.2s;
+
+      &:active {
         color: white;
       }
-      &:hover{
-        color: #46a1d8;
+
+      &:hover {
+        background-color: #49aaf8;
       }
     }
-    .left,.right{
+
+    .left, .right {
       top: 50%;
       margin-top: -30px;
       left: 20px;
     }
-    .right{
+
+    .right {
       right: 20px;
       left: auto;
     }
+
     .preview {
       max-width: 100%;
       max-height: 100%;
     }
   }
+}
+
+.toolbar {
+  background: #000;
+  color: white;
+  .btns{
+    width: 500px;
+    margin: 0px auto;
+  }
+}
+.size{
+  position: fixed;
+  top: 0;
+  right: 2px;
+  color: rgba(#FFF,0.5);
+  font-size: 12px;
 }
 
 /*滚动条样式*/
