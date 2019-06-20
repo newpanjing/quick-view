@@ -38,8 +38,8 @@ function init() {
     });
 
     win = new BrowserWindow({
-        width: 850,
-        height: 500,
+        width: 950,
+        height: 600,
         // maximizable: false,
         webPreferences: {
             nodeIntegration: true

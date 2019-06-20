@@ -7,20 +7,31 @@
     <link rel="stylesheet" href="./iconfont/iconfont.css">
 </head>
 <body>
-<div id="app" v-dragfile="openFile">
+<div style="display: none" id="app" v-focus v-dragfile="openFile" @mouseenter="mouseenter($event)" @mouseleave="mouseout($event)" @keyup="switchKeyborad($event)" tabindex="0">
+    <transition name="fade">
+        <div v-if="isMouseEnter" class="title">
+            <span v-text="currentName"></span>
+            <span>{{image.width}}x{{image.height}}</span>
+            <span class="page">{{currentIndex+1}}/{{files.length}}</span>
+        </div>
+    </transition>
 
-    <div class="img-wrap" :style="{height: imgWrapHeight+'px'}" @keyup="switchKeyborad($event)" tabindex="0">
-        <div class="switch left" @click="prev()"><span class="iconfont icon-changyongicon-1"></span></div>
-        <div class="switch right" @click="next()"><span class="iconfont icon-changyongicon-"></span></div>
-        <img v-if="image.src" :style="image" class="preview" :src='image.src'/>
+    <div class="img-wrap">
+        <transition name="fade">
+            <div v-if="isMouseEnter" class="switch left" @click="prev()"><span class="iconfont icon-changyongicon-1"></span></div>
+        </transition>
+        <transition name="fade">
+            <div v-if="isMouseEnter" class="switch right" @click="next()"><span class="iconfont icon-changyongicon-"></span></div>
+        </transition>
+        <img v-if="image.src" :style="{transform:'rotate('+image.rotate+'deg)'}" class="preview" :src='image.src'/>
     </div>
-    <span class="size">{{image.width}}x{{image.height}}</span>
     <div class="toolbar" :style="{height:toolbarHeight+'px'}">
         <div class="btns">
-            <span class="page">{{currentIndex+1}}/{{files.length}}</span>
             <span class="iconfont icon-Zoomout"></span>
-            <span>100%</span>
+            <span class="zoom">100%</span>
             <span class="iconfont icon-Zoomin"></span>
+            <span class="iconfont icon-rotate-left" @click="rotate()"></span>
+            <span class="iconfont icon-icon-test"></span>
         </div>
     </div>
 </div>

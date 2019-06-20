@@ -7,8 +7,15 @@ body {
   height: 100%;
   width: 100%;
 }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.6s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 #app {
-  -webkit-app-region: drag;
   position: relative;
   height: 100%;
   width: 100%;
@@ -21,6 +28,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: calc(100% - 100px);
+  overflow: auto;
 }
 #app .img-wrap .iconfont {
   font-size: 30px !important;
@@ -28,7 +37,7 @@ body {
 #app .img-wrap .switch {
   width: 60px;
   height: 60px;
-  position: absolute;
+  position: fixed;
   background: rgba(0, 0, 0, 0.6);
   color: white;
   text-align: center;
@@ -36,41 +45,72 @@ body {
   border-radius: 50px;
   cursor: pointer;
   transition: background-color 0.2s;
+  z-index: 98;
+  top: calc((100% - 100px) / 2);
+  margin-top: -30px;
 }
 #app .img-wrap .switch:active {
   color: white;
 }
 #app .img-wrap .switch:hover {
-  background-color: #49aaf8;
+  background-color: rgba(73, 170, 248, 0.8);
 }
-#app .img-wrap .left,
-#app .img-wrap .right {
-  top: 50%;
-  margin-top: -30px;
+#app .img-wrap .left {
   left: 20px;
 }
 #app .img-wrap .right {
   right: 20px;
-  left: auto;
 }
 #app .img-wrap .preview {
   max-width: 100%;
   max-height: 100%;
+  transition: all 0.5s;
+}
+#app .title {
+  -webkit-app-region: drag;
+  user-select: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 38px;
+  line-height: 38px;
+  text-align: center;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 .toolbar {
   background: #000;
   color: white;
 }
 .toolbar .btns {
-  width: 500px;
   margin: 0px auto;
+  padding-top: 10px;
+  text-align: center;
+  height: 25px;
+  line-height: 25px;
 }
-.size {
-  position: fixed;
-  top: 0;
-  right: 2px;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 12px;
+.toolbar .btns .zoom {
+  -webkit-app-region: none;
+  font-size: 20px;
+  font-weight: 300;
+  display: inline-block;
+  width: auto;
+  text-align: center;
+}
+.toolbar .btns .iconfont {
+  -webkit-app-region: none;
+  font-size: 20px;
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+}
+.toolbar .btns .iconfont:hover {
+  color: #49aaf8;
+}
+.toolbar .btns .page {
+  border-right: #FFF 1px solid;
+  padding-right: 10px;
 }
 /*滚动条样式*/
 /*# sourceMappingURL=style.css.map */

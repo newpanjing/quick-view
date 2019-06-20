@@ -7,8 +7,15 @@ html, body {
   width: 100%;
 }
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .6s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 #app {
-  -webkit-app-region: drag;
   position: relative;
   height: 100%;
   width: 100%;
@@ -21,6 +28,8 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: calc(100% - 100px);
+    overflow: auto;
 
     .iconfont {
       font-size: 30px !important;
@@ -29,7 +38,7 @@ html, body {
     .switch {
       width: 60px;
       height: 60px;
-      position: absolute;
+      position: fixed;
       background: rgba(0, 0, 0, 0.6);
       color: white;
       text-align: center;
@@ -37,49 +46,86 @@ html, body {
       border-radius: 50px;
       cursor: pointer;
       transition: background-color 0.2s;
+      z-index: 98;
+      top: calc((100% - 100px) / 2);
+      margin-top: -30px;
 
       &:active {
         color: white;
       }
 
       &:hover {
-        background-color: #49aaf8;
+        background-color: rgba(#49aaf8, 0.8);
       }
     }
 
-    .left, .right {
-      top: 50%;
-      margin-top: -30px;
+    .left {
       left: 20px;
     }
 
     .right {
       right: 20px;
-      left: auto;
     }
 
     .preview {
       max-width: 100%;
       max-height: 100%;
+      transition: all .5s;
     }
+  }
+
+  .title {
+    -webkit-app-region: drag;
+    user-select: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    z-index: 99;
+    background-color: rgba(#000, 0.6);
   }
 }
 
 .toolbar {
   background: #000;
   color: white;
-  .btns{
-    width: 500px;
+
+  .btns {
     margin: 0px auto;
+    padding-top: 10px;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+    .zoom{
+      -webkit-app-region: none;
+      font-size: 20px;
+      font-weight: 300;
+      display: inline-block;
+      width: auto;
+      text-align: center;;
+    }
+    .iconfont {
+      -webkit-app-region: none;
+      font-size: 20px;
+      display: inline-block;
+      width: 30px;
+      text-align: center;
+
+      &:hover {
+        color: #49aaf8;
+      }
+    }
+
+    .page {
+      border-right: #FFF 1px solid;
+      padding-right: 10px;
+    }
   }
 }
-.size{
-  position: fixed;
-  top: 0;
-  right: 2px;
-  color: rgba(#FFF,0.5);
-  font-size: 12px;
-}
+
 
 /*滚动条样式*/
 //*::-webkit-scrollbar {
