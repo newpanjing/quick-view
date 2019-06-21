@@ -61,7 +61,16 @@ var app = new Vue({
     methods: {
         //设置缩放
         setScale(type) {
+            let mappers = {
+                'min': function () {
+                    this.image.zoom = (this.image.zoom - this.image.zoom % 5) - 5;
+                },
+                'max': function () {
+                    this.image.zoom = (this.image.zoom - this.image.zoom % 5) + 5;
+                }
+            }
 
+            mappers[type].call(this);
         },
         setTop() {
             this.top = !this.top;
