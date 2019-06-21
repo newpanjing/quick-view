@@ -17,6 +17,10 @@ function init() {
         }
     });
 
+    ipcMain.on('top', (event, val) => {
+        win.setAlwaysOnTop(val);
+    });
+
     app.on('open-file', function (event, url) {
         //如果窗口还没打开需要等待
         console.log('打开文件')
@@ -27,7 +31,7 @@ function init() {
         } else {
             client.send('openFile', url);
         }
-        if(win){
+        if (win) {
             win.show();
             win.focus();
         }

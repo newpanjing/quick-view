@@ -1,5 +1,6 @@
 var fs = require('fs');
 var path = require('path');
+const {ipcRenderer} = require('electron')
 
 Vue.directive('dragfile', {
     // 当被绑定的元素插入到 DOM 中时……
@@ -35,6 +36,7 @@ Vue.directive('focus', {
 var app = new Vue({
     el: '#app',
     data: {
+        top: false,
         t: null,//定时器
         url: null,
         toolbarHeight: 100,
@@ -46,10 +48,21 @@ var app = new Vue({
             src: null,
             height: 0,
             width: 0,
-            rotate: 0
+            //旋转
+            rotate: 0,
+            //缩放
+            zoom: false
+        },
+        window: {
+            width: 0,
+            height: 0
         }
     },
     methods: {
+        setTop() {
+            this.top = !this.top;
+            ipcRenderer.send('top', this.top);
+        },
         rotate() {
             //图片向左旋转
             this.image.rotate -= 90;
@@ -126,26 +139,8 @@ var app = new Vue({
                 });
 
             });
-            //
-            // //优化成异步
-            // var fiels = fs.readdirSync(dir);
-            // var suffixs = ['.png', '.jpg', '.gif', '.bmp', '.tif', '.jp2', '.webp'];
-            // var currentIndex = 0;
-            // fiels.forEach(((value, index) => {
-            //     var s = path.extname(value).toLocaleLowerCase();
-            //     if (suffixs.indexOf(s) != -1) {
-            //         var file = path.join(dir, value);
-            //
-            //         app.files.push(file);
-            //         if (file == obj) {
-            //             app.currentIndex = currentIndex;
-            //         } else {
-            //             currentIndex++;
-            //         }
-            //
-            //     }
-            // }));
-            //异步生成缩略图
+
+            //如果缩略图 异步生成缩略图
             console.log(app.currentIndex)
             console.log(`文件打开：${obj}`)
             console.log(`files:${app.files}`)
@@ -166,9 +161,39 @@ var app = new Vue({
                 console.log(_image.width)
                 console.log(_image.height)
 
+
+
+                var w = _image.width, h = _image.height;
+
+
+                //判断大小，如果超过容器的大小，就缩放
+                var v1 = w / self.window.width;
+                var v2 = w / self.window.height;
+
+                if (v1 > v2) {
+                    w = self.window.width;
+                    var scale = self.window.width / w;
+                    h = scale * h;
+                }else{
+                    h = self.window.height;
+                    var scale = self.window.height / h;
+                    w = scale * w;
+                }
+
+                // if (_image.width > self.window.width) {
+                //     w = self.window.width;
+                //     var scale = self.window.width / w;
+                //     h = scale * h;
+                // } else if (_image.height > self.window.height) {
+                //     h = self.window.width;
+                //     var scale = self.window.width / h;
+                //     w = scale * w;
+                // }
+
+                self.image.width = w;
+                self.image.height = h;
+
                 //获取
-                self.image.width = _image.width;
-                self.image.height = _image.height;
                 self.image.src = newValue;
                 self.currentName = path.basename(newValue);
             }
@@ -178,7 +203,6 @@ var app = new Vue({
     },
     created() {
         //注册ipc
-        const {ipcRenderer} = require('electron')
         ipcRenderer.send('register');
         var self = this;
         ipcRenderer.on('openFile', (event, url) => {
@@ -192,11 +216,18 @@ var app = new Vue({
     }
 });
 window.onload = function () {
+    setSzie();
     app.openFile('/Users/panjing/Downloads/8d5494eef01f3a29f863534d9725bc315d607c8e.jpg')
-}
-window.onresize = function () {
 
-    // var height = document.body.offsetHeight;
-    // app.imgWrapHeight = height - app.toolbarHeight;
-    // app.$forceUpdate();
+}
+
+function setSzie() {
+    app.window = {
+        height: document.body.offsetHeight - 100,
+        width: document.body.offsetWidth
+    }
+}
+
+window.onresize = function () {
+    setSzie();
 }

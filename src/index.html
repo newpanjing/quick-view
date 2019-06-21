@@ -12,18 +12,19 @@
         <div v-if="isMouseEnter" class="title">
             <span v-text="currentName"></span>
             <span>{{image.width}}x{{image.height}}</span>
-            <span class="page">{{currentIndex+1}}/{{files.length}}</span>
+            <span v-if="files.length>1" class="page">{{currentIndex+1}}/{{files.length}}</span>
+            <span :class="{iconfont:true,'icon-icon-':true,'set-top':true,active:top}" @click="setTop()" title="alwaysOnTop"></span>
         </div>
     </transition>
 
     <div class="img-wrap">
         <transition name="fade">
-            <div v-if="isMouseEnter" class="switch left" @click="prev()"><span class="iconfont icon-changyongicon-1"></span></div>
+            <div v-if="isMouseEnter&&files.length>1" class="switch left" @click="prev()"><span class="iconfont icon-changyongicon-1"></span></div>
         </transition>
         <transition name="fade">
-            <div v-if="isMouseEnter" class="switch right" @click="next()"><span class="iconfont icon-changyongicon-"></span></div>
+            <div v-if="isMouseEnter&&files.length>1" class="switch right" @click="next()"><span class="iconfont icon-changyongicon-"></span></div>
         </transition>
-        <img v-if="image.src" :style="{transform:'rotate('+image.rotate+'deg)'}" class="preview" :src='image.src'/>
+        <img v-if="image.src" :style="{transform:'rotate('+image.rotate+'deg)',width:image.width+'px',height:image.height+'px'}" class="preview" :src='image.src'/>
     </div>
     <div class="toolbar" :style="{height:toolbarHeight+'px'}">
         <div class="btns">

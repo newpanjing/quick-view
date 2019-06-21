@@ -68,9 +68,10 @@ html, body {
     }
 
     .preview {
-      max-width: 100%;
-      max-height: 100%;
+      //max-width: 100%;
+      //max-height: 100%;
       transition: all .5s;
+      position: absolute;
     }
   }
 
@@ -86,6 +87,19 @@ html, body {
     text-align: center;
     z-index: 99;
     background-color: rgba(#000, 0.6);
+
+    .set-top {
+      position: fixed;
+      right: 10px;
+      -webkit-app-region: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .active {
+      color: #49aaf8;
+      transform: rotate(90deg)
+    }
   }
 }
 
@@ -99,7 +113,8 @@ html, body {
     text-align: center;
     height: 25px;
     line-height: 25px;
-    .zoom{
+
+    .zoom {
       -webkit-app-region: none;
       font-size: 20px;
       font-weight: 300;
@@ -107,6 +122,7 @@ html, body {
       width: auto;
       text-align: center;;
     }
+
     .iconfont {
       -webkit-app-region: none;
       font-size: 20px;
