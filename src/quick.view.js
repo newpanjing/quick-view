@@ -51,7 +51,7 @@ var app = new Vue({
             //旋转
             rotate: 0,
             //缩放
-            zoom: false
+            zoom: 100
         },
         window: {
             width: 0,
@@ -59,6 +59,10 @@ var app = new Vue({
         }
     },
     methods: {
+        //设置缩放
+        setScale(type) {
+
+        },
         setTop() {
             this.top = !this.top;
             ipcRenderer.send('top', this.top);
@@ -144,6 +148,42 @@ var app = new Vue({
             console.log(app.currentIndex)
             console.log(`文件打开：${obj}`)
             console.log(`files:${app.files}`)
+        },
+        scale: function (w1, h1, w2, h2) {
+
+            var v1 = w1 / w2;
+            var v2 = h1 / h2;
+            var r1 = w1, r2 = h1;
+
+            let zoom = 1;
+
+            if (w1 > w2) {
+                r1 = w2;
+                r2 = (w2 / w1) * h1;
+                zoom = w2 / w1;
+                if (r2 > h2) {
+                    r2 = h2;
+                    zoom = h2 / h1;
+                    r1 = (h2 / h1) * w1;
+                }
+            }
+
+            if (h1 > h2) {
+                r2 = h2;
+                zoom = h2 / h1;
+                r1 = (h2 / h1) * w1;
+                if (r1 > w2) {
+                    r1 = w2;
+                    zoom = h2 / h1;
+                    r2 = (h2 / h1) * w1;
+                }
+            }
+
+            return {
+                width: r1,
+                height: r2,
+                zoom: zoom
+            }
         }
     },
     watch: {
@@ -157,41 +197,23 @@ var app = new Vue({
             }
             var self = this;
             var _image = new Image();
+            if (self.image.rotate != 0) {
+                self.image.src = '';
+                self.image.rotate = 0;
+            }
             _image.onload = () => {
                 console.log(_image.width)
                 console.log(_image.height)
 
 
+                var width = self.window.width;
+                var height = self.window.height;
 
-                var w = _image.width, h = _image.height;
+                var result = this.scale(_image.width, _image.height, width, height);
 
-
-                //判断大小，如果超过容器的大小，就缩放
-                var v1 = w / self.window.width;
-                var v2 = w / self.window.height;
-
-                if (v1 > v2) {
-                    w = self.window.width;
-                    var scale = self.window.width / w;
-                    h = scale * h;
-                }else{
-                    h = self.window.height;
-                    var scale = self.window.height / h;
-                    w = scale * w;
-                }
-
-                // if (_image.width > self.window.width) {
-                //     w = self.window.width;
-                //     var scale = self.window.width / w;
-                //     h = scale * h;
-                // } else if (_image.height > self.window.height) {
-                //     h = self.window.width;
-                //     var scale = self.window.width / h;
-                //     w = scale * w;
-                // }
-
-                self.image.width = w;
-                self.image.height = h;
+                self.image.width = result.width;
+                self.image.height = result.height;
+                self.image.zoom = Math.round(result.zoom * 100);
 
                 //获取
                 self.image.src = newValue;
