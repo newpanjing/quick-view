@@ -28,8 +28,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: calc(100% - 100px);
-  overflow: auto;
+  height: 100%;
+  overflow: hidden;
 }
 #app .img-wrap .iconfont {
   font-size: 30px !important;
@@ -46,7 +46,7 @@ body {
   cursor: pointer;
   transition: background-color 0.2s;
   z-index: 98;
-  top: calc((100% - 100px) / 2);
+  top: 50%;
   margin-top: -30px;
 }
 #app .img-wrap .switch:active {
@@ -90,15 +90,20 @@ body {
   transform: rotate(90deg);
 }
 .toolbar {
-  background: #000;
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  bottom: 10px;
+  width: 200px;
+  left: 50%;
+  margin-left: -100px;
   color: white;
+  border-radius: 5px;
 }
 .toolbar .btns {
   margin: 0px auto;
-  padding-top: 10px;
   text-align: center;
-  height: 25px;
-  line-height: 25px;
+  user-select: none;
+  padding: 5px;
 }
 .toolbar .btns .zoom {
   -webkit-app-region: none;

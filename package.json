@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "dev": "electron .",
-    "build": "electron-packager . QuickView --darwin --out ./dist/ --arch=x64 --app-version=0.0.1 --overwrite"
+    "build": "electron-packager . QuickView --darwin --out ./dist/ --arch=x64 --icon=./src/Icon.icns --extend-info=./src/Info.plist --overwrite"
   },
   "keywords": [],
   "author": "",

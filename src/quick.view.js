@@ -51,7 +51,9 @@ var app = new Vue({
             //旋转
             rotate: 0,
             //缩放
-            zoom: 100
+            zoom: 100,
+            originalWidth: 0,
+            originalHeight: 0
         },
         window: {
             width: 0,
@@ -61,16 +63,17 @@ var app = new Vue({
     methods: {
         //设置缩放
         setScale(type) {
-            let mappers = {
-                'min': function () {
-                    this.image.zoom = (this.image.zoom - this.image.zoom % 5) - 5;
-                },
-                'max': function () {
-                    this.image.zoom = (this.image.zoom - this.image.zoom % 5) + 5;
-                }
+
+            if (type == 'min') {
+                this.image.zoom = (this.image.zoom - this.image.zoom % 5) - 5;
+            } else {
+                this.image.zoom = (this.image.zoom - this.image.zoom % 5) + 5;
             }
 
-            mappers[type].call(this);
+            var ratio = this.image.zoom / 100;
+
+            this.image.width = Math.round(ratio * this.image.originalWidth);
+            this.image.height = Math.round(ratio * this.image.originalHeight);
         },
         setTop() {
             this.top = !this.top;
@@ -160,8 +163,6 @@ var app = new Vue({
         },
         scale: function (w1, h1, w2, h2) {
 
-            var v1 = w1 / w2;
-            var v2 = h1 / h2;
             var r1 = w1, r2 = h1;
 
             let zoom = 1;
@@ -189,8 +190,8 @@ var app = new Vue({
             }
 
             return {
-                width: r1,
-                height: r2,
+                width: Math.round(r1),
+                height: Math.round(r2),
                 zoom: zoom
             }
         }
@@ -214,6 +215,8 @@ var app = new Vue({
                 console.log(_image.width)
                 console.log(_image.height)
 
+                self.image.originalWidth = _image.width;
+                self.image.originalHeight = _image.height;
 
                 var width = self.window.width;
                 var height = self.window.height;
@@ -254,7 +257,7 @@ window.onload = function () {
 
 function setSzie() {
     app.window = {
-        height: document.body.offsetHeight - 100,
+        height: document.body.offsetHeight,
         width: document.body.offsetWidth
     }
 }

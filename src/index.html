@@ -26,13 +26,13 @@
         </transition>
         <img v-if="image.src" :style="{transform:'rotate('+image.rotate+'deg)',width:image.width+'px',height:image.height+'px'}" class="preview" :src='image.src'/>
     </div>
-    <div class="toolbar" :style="{height:toolbarHeight+'px'}">
+    <div class="toolbar">
         <div class="btns">
             <span class="iconfont icon-Zoomout" @click="setScale('min')"></span>
             <span class="zoom">{{image.zoom}}%</span>
             <span class="iconfont icon-Zoomin" @click="setScale('max')"></span>
             <span class="iconfont icon-rotate-left" @click="rotate()"></span>
-            <span class="iconfont icon-icon-test"></span>
+<!--            <span class="iconfont icon-icon-test"></span>-->
         </div>
     </div>
 </div>
