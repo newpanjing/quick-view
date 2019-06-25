@@ -26,7 +26,7 @@
             <div v-if="isMouseEnter&&files.length>1" class="switch right" @click="next()"><span class="iconfont icon-changyongicon-"></span></div>
         </transition>
         <img v-drag="{image:image}" id="preview" v-if="image.src" :style="{transition:'all .2s',transform:'rotate('+image.rotate+'deg)',width:image.width+'px',height:image.height+'px'}" class="preview" :src='image.src'/>
-        <div v-else class="select-image" @click="openFileDialog()">Click to select image</div>
+        <div v-else class="select-image" @click="openFileDialog()">Choose an image</div>
     </div>
     <div v-if="image.src" class="toolbar">
         <div class="btns">

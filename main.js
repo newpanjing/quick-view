@@ -17,6 +17,18 @@ function createAppIcon() {
     });
     const contextMenu = Menu.buildFromTemplate([
         {
+            label: 'Choose an image',
+            click: () => {
+                var rs = dialog.showOpenDialog(win, {
+                    properties: ['openFile', 'showHiddenFiles', 'treatPackageAsDirectory'],
+                    filters: [{name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'ico']}]
+                });
+                if (rs) {
+                    client.send('openFile', rs);
+                }
+            }
+        },
+        {
             label: 'Display Window', click: () => {
                 win.show();
                 win.focus();

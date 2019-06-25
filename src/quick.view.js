@@ -159,8 +159,10 @@ var app = new Vue({
         },
         openFileDialog() {
             var val = ipcRenderer.sendSync('openFile');
-            console.log(`打开文件返回：${val}`);
-            this.openFile(val);
+            if (val) {
+                console.log(`打开文件返回：${val}`);
+                this.openFile(val);
+            }
         },
         openFile: function (obj) {
             app.files = [];
