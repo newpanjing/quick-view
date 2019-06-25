@@ -17,6 +17,14 @@ function init() {
         }
     });
 
+    ipcMain.on('maximize', (event, args) => {
+        if (win.isMaximized()) {
+            win.unmaximize()
+        } else {
+            win.maximize()
+        }
+    });
+
     ipcMain.on('top', (event, val) => {
         win.setAlwaysOnTop(val);
     });

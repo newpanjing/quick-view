@@ -34,7 +34,6 @@ Vue.directive('drag', {
             onDrag(pos) {
                 binding.value.image.x = pos.left;
                 binding.value.image.y = pos.top;
-
             },
             onBegin() {
                 el.style.transition = 'none';
@@ -81,10 +80,16 @@ var app = new Vue({
         },
         window: {
             width: 0,
-            height: 0
+            height: 0,
+            top: 0,
+            left: 0
         }
     },
     methods: {
+        maximize(){
+          console.log('双击')
+            ipcRenderer.send('maximize');
+        },
         //设置缩放
         setScale(type) {
 
@@ -239,6 +244,8 @@ var app = new Vue({
             //如果被拖拽过，恢复默认位置
             if (self.image.drag) {
                 // self.image.src = '';
+                document.getElementById('preview').style.removeProperty('top');
+                document.getElementById('preview').style.removeProperty('left');
                 self.image.drag = false;
             }
             _image.onload = () => {
