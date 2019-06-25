@@ -228,6 +228,10 @@ var app = new Vue({
         }
     },
     watch: {
+        'image.zoom'(newValue) {
+            console.log(newValue)
+            ipcRenderer.send('zoom', newValue);
+        },
         currentIndex(newValue, oldValue) {
 
             this.url = this.files[newValue];
@@ -275,12 +279,32 @@ var app = new Vue({
         }
     },
     created() {
+
         //注册ipc
         ipcRenderer.send('register');
         var self = this;
         ipcRenderer.on('openFile', (event, url) => {
             self.openFile(url);
-        })
+        });
+        ipcRenderer.on('touchbar', (event, data) => {
+            var mappers = {
+                'prev': this.prev,
+                'next': this.next,
+                'zoomin': function () {
+                    return self.setScale('max');
+                },
+                'zoomout': function () {
+                    return self.setScale('min');
+                },
+                'rotateLeft': self.rotateLeft,
+                'rotateRight': self.rotateRight
+            }
+
+            let fun = mappers[data.type];
+            if(fun){
+                fun.call(this);
+            }
+        });
         this.$nextTick(() => {
             document.getElementById('app').style.display = 'block';
         })

@@ -94,7 +94,7 @@ body {
   background: rgba(0, 0, 0, 0.6);
   position: fixed;
   bottom: 10px;
-  width: 200px;
+  width: auto;
   left: 50%;
   margin-left: -100px;
   color: white;

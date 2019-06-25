@@ -16,7 +16,9 @@ function init() {
             client.send('openFile', temp);
         }
     });
-
+    ipcMain.on('zoom', (event, args) => {
+        zoomLabel.label = args + '%';
+    });
     ipcMain.on('maximize', (event, args) => {
         if (win.isMaximized()) {
             win.unmaximize()
@@ -71,29 +73,63 @@ function init() {
 
     //判断操作系统类型，如果是macOS 就创建触控板
     let left_btn = new TouchBarButton({
-        icon: `${__dirname}/src/icons/left.png`
+        icon: `${__dirname}/src/icons/left.png`,
+        click: () => {
+            client.send('touchbar', {
+                type: 'prev'
+            });
+        }
     });
     let right_btn = new TouchBarButton({
-        icon: `${__dirname}/src/icons/right.png`
+        icon: `${__dirname}/src/icons/right.png`,
+        click: () => {
+            client.send('touchbar', {
+                type: 'next'
+            });
+        }
     });
     let zoomin = new TouchBarButton({
-        icon: `${__dirname}/src/icons/Zoomin.png`
+        icon: `${__dirname}/src/icons/Zoomin.png`,
+        click: () => {
+            client.send('touchbar', {
+                type: 'zoomin'
+            });
+        }
     });
 
     let zoomout = new TouchBarButton({
-        icon: `${__dirname}/src/icons/Zoomout.png`
+        icon: `${__dirname}/src/icons/Zoomout.png`,
+        click: () => {
+            client.send('touchbar', {
+                type: 'zoomout'
+            });
+        }
     });
     let zoomLabel = new TouchBarButton({label: '100%'});
-    let rotateLeft = new TouchBarButton({icon: `${__dirname}/src/icons/rotate-left.png`})
-    let rotateRight = new TouchBarButton({icon: `${__dirname}/src/icons/rotate-right.png`})
+    let rotateLeft = new TouchBarButton({
+        icon: `${__dirname}/src/icons/rotate-left.png`,
+        click: () => {
+            client.send('touchbar', {
+                type: 'rotateLeft'
+            });
+        }
+    })
+    let rotateRight = new TouchBarButton({
+        icon: `${__dirname}/src/icons/rotate-right.png`,
+        click: () => {
+            client.send('touchbar', {
+                type: 'rotateRight'
+            });
+        }
+    });
 
     const touchBar = new TouchBar({
         items: [
             left_btn,
             right_btn,
-            zoomin,
-            zoomLabel,
             zoomout,
+            zoomLabel,
+            zoomin,
             rotateLeft,
             rotateRight,
         ]
