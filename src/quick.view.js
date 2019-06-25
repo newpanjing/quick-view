@@ -26,6 +26,28 @@ Vue.directive('dragfile', {
     }
 });
 
+Vue.directive('drag', {
+    bind(el, binding) {
+        //这里是直接操作dom改变位置的，有bug
+        var value = el.style.transition;
+        new Drag({
+            onDrag(pos) {
+                binding.value.image.x = pos.left;
+                binding.value.image.y = pos.top;
+
+            },
+            onBegin() {
+                el.style.transition = 'none';
+            },
+            onEnd() {
+                el.style.transition = value;
+                binding.value.image.drag = true;
+            }
+        }).register(el);
+        console.log(binding.value)
+    }
+})
+
 Vue.directive('focus', {
     inserted: function (el) {
         el.focus();
@@ -53,7 +75,9 @@ var app = new Vue({
             //缩放
             zoom: 100,
             originalWidth: 0,
-            originalHeight: 0
+            originalHeight: 0,
+            x: 0,
+            y: 0
         },
         window: {
             width: 0,
@@ -84,14 +108,14 @@ var app = new Vue({
             this.image.rotate -= 90;
         },
         mouseenter(e) {
-            console.log('鼠标进入')
+            // console.log('鼠标进入')
             this.isMouseEnter = true;
             if (this.t) {
                 window.clearTimeout(this.t);
             }
         },
         mouseout(e) {
-            console.log('鼠标离开')
+            // console.log('鼠标离开')
             var self = this;
             this.t = window.setTimeout(function () {
                 self.isMouseEnter = false;
@@ -210,6 +234,12 @@ var app = new Vue({
             if (self.image.rotate != 0) {
                 self.image.src = '';
                 self.image.rotate = 0;
+            }
+
+            //如果被拖拽过，恢复默认位置
+            if (self.image.drag) {
+                // self.image.src = '';
+                self.image.drag = false;
             }
             _image.onload = () => {
                 console.log(_image.width)

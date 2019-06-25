@@ -24,7 +24,7 @@
         <transition name="fade">
             <div v-if="isMouseEnter&&files.length>1" class="switch right" @click="next()"><span class="iconfont icon-changyongicon-"></span></div>
         </transition>
-        <img v-if="image.src" :style="{transform:'rotate('+image.rotate+'deg)',width:image.width+'px',height:image.height+'px'}" class="preview" :src='image.src'/>
+        <img v-drag="{image:image}" v-if="image.src" :style="{left:image.drag?image.x+'px':'',top:image.drag?image.y+'px':'',transition:'all .2s',transform:'rotate('+image.rotate+'deg)',width:image.width+'px',height:image.height+'px'}" class="preview" :src='image.src'/>
     </div>
     <div class="toolbar">
         <div class="btns">
@@ -37,6 +37,7 @@
     </div>
 </div>
 <script type="text/javascript" src="lib/vue.js"></script>
+<script type="text/javascript" src="lib/drag.js"></script>
 <script type="text/javascript" src="quick.view.js"></script>
 </body>
 </html>

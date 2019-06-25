@@ -62,7 +62,6 @@ body {
   right: 20px;
 }
 #app .img-wrap .preview {
-  transition: all 0.2s;
   position: absolute;
 }
 #app .title {
