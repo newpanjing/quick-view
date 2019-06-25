@@ -11,7 +11,8 @@
     <transition name="fade">
         <div v-if="isMouseEnter" class="title" @dblclick="maximize()">
             <span v-text="currentName"></span>
-            <span>{{image.width}}x{{image.height}}</span>
+            <span v-if="image.src">{{image.width}}x{{image.height}}</span>
+            <span v-else>Quick View</span>
             <span v-if="files.length>1" class="page">{{currentIndex+1}}/{{files.length}}</span>
             <span :class="{iconfont:true,'icon-icon-':true,'set-top':true,active:top}" @click="setTop()" title="alwaysOnTop"></span>
         </div>
@@ -25,8 +26,9 @@
             <div v-if="isMouseEnter&&files.length>1" class="switch right" @click="next()"><span class="iconfont icon-changyongicon-"></span></div>
         </transition>
         <img v-drag="{image:image}" id="preview" v-if="image.src" :style="{transition:'all .2s',transform:'rotate('+image.rotate+'deg)',width:image.width+'px',height:image.height+'px'}" class="preview" :src='image.src'/>
+        <div v-else class="select-image" @click="openFileDialog()">Click to select image</div>
     </div>
-    <div class="toolbar">
+    <div v-if="image.src" class="toolbar">
         <div class="btns">
             <span class="iconfont icon-Zoomout" @click="setScale('min')"></span>
             <span class="zoom">{{image.zoom}}%</span>

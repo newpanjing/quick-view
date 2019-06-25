@@ -157,6 +157,11 @@ var app = new Vue({
                 this.currentIndex += 1;
             }
         },
+        openFileDialog() {
+            var val = ipcRenderer.sendSync('openFile');
+            console.log(`打开文件返回：${val}`);
+            this.openFile(val);
+        },
         openFile: function (obj) {
             app.files = [];
 
@@ -301,7 +306,7 @@ var app = new Vue({
             }
 
             let fun = mappers[data.type];
-            if(fun){
+            if (fun) {
                 fun.call(this);
             }
         });
@@ -314,7 +319,7 @@ var app = new Vue({
 });
 window.onload = function () {
     setSzie();
-    app.openFile('/Users/panjing/Downloads/8d5494eef01f3a29f863534d9725bc315d607c8e.jpg')
+    // app.openFile('/Users/panjing/Downloads/8d5494eef01f3a29f863534d9725bc315d607c8e.jpg')
 
 }
 

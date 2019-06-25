@@ -128,5 +128,16 @@ body {
   border-right: #FFF 1px solid;
   padding-right: 10px;
 }
+.select-image {
+  border: rgba(204, 204, 204, 0.8) 1px solid;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.select-image:hover {
+  color: #49aaf8;
+  border-color: #49aaf8;
+}
 /*滚动条样式*/
 /*# sourceMappingURL=style.css.map */

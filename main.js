@@ -7,8 +7,49 @@ var client = null;
 
 var temp = null;
 
+var appIcon = null;
+
+function createAppIcon() {
+    appIcon = new Tray(`${__dirname}/src/icons/tray.png`)
+    appIcon.setToolTip('Quick View');
+    appIcon.on('double-click', () => {
+        win.isVisible() ? win.focus() : win.show()
+    });
+    const contextMenu = Menu.buildFromTemplate([
+        {
+            label: 'Display Window', click: () => {
+                win.show();
+                win.focus();
+            }
+        },
+        {label: 'Check for Updates',},
+        {label: 'About', role: 'about'},
+        {type: 'separator'},
+        {label: 'Quit', role: 'quit'}
+    ])
+
+    appIcon.setContextMenu(contextMenu);
+
+    appIcon.on('drop-files', (event, files) => {
+        console.log(files);
+        if (files.length != 0) {
+            client.send('openFile', files[0]);
+        }
+    })
+}
+
 function init() {
 
+    createAppIcon();
+    ipcMain.on('openFile', (event, args) => {
+        //event.returnValue=
+        var rs = dialog.showOpenDialog(win, {
+            properties: ['openFile', 'showHiddenFiles', 'treatPackageAsDirectory'],
+            filters: [{name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'ico']}]
+        });
+        event.returnValue = rs;
+
+    });
     ipcMain.on('register', (event, args) => {
         client = event.sender;
         //注册后，如果temp不为空 就通知

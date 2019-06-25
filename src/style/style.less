@@ -106,7 +106,7 @@ html, body {
 }
 
 .toolbar {
-  background: rgba(#000,0.6);
+  background: rgba(#000, 0.6);
   position: fixed;
   bottom: 10px;
   width: auto;
@@ -114,11 +114,12 @@ html, body {
   margin-left: -100px;
   color: white;
   border-radius: 5px;
+
   .btns {
     margin: 0px auto;
     text-align: center;
     user-select: none;
-    padding:5px;
+    padding: 5px;
 
     .zoom {
       -webkit-app-region: none;
@@ -148,6 +149,18 @@ html, body {
   }
 }
 
+.select-image {
+  border: rgba(#ccc, .8) 1px solid;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    color: #49aaf8;
+    border-color: #49aaf8;
+  }
+}
 
 /*滚动条样式*/
 //*::-webkit-scrollbar {
