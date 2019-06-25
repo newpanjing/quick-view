@@ -30,6 +30,7 @@ body {
   justify-content: center;
   height: 100%;
   overflow: hidden;
+  user-select: none;
 }
 #app .img-wrap .iconfont {
   font-size: 30px !important;
@@ -62,6 +63,7 @@ body {
   right: 20px;
 }
 #app .img-wrap .preview {
+  user-select: none;
   position: absolute;
 }
 #app .title {

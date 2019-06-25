@@ -86,8 +86,7 @@ var app = new Vue({
         }
     },
     methods: {
-        maximize(){
-          console.log('双击')
+        maximize() {
             ipcRenderer.send('maximize');
         },
         //设置缩放
@@ -108,9 +107,12 @@ var app = new Vue({
             this.top = !this.top;
             ipcRenderer.send('top', this.top);
         },
-        rotate() {
+        rotateLeft() {
             //图片向左旋转
             this.image.rotate -= 90;
+        },
+        rotateRight() {
+            this.image.rotate += 90;
         },
         mouseenter(e) {
             // console.log('鼠标进入')
