@@ -13,7 +13,7 @@
   "author": "newpanjing@icloud.com",
   "homepage": "https://github.com/newpanjing/",
   "dependencies": {
-    "electron": "^9.1.0",
+    "electron": "^9.3.1",
     "electron-packager": "^13.1.1"
   }
 }
